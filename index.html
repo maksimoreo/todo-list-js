@@ -8,7 +8,89 @@
 </head>
 <body>
   <div id="content">
+    <div id="about">
+      <h1>About</h1>
+      <p>TODO List.</p>
+    </div>
 
+    <div id="todo-form">
+      <h1>Add new TODO:</h1>
+
+      <label for="input-todo-project">Project: </label>
+      <input type="text" name="todo-project" id="input-todo-project"><br />
+
+      <label for="input-todo-title">Title: </label>
+      <input type="text" name="todo-title" id="input-todo-title"><br />
+
+      <label for="input-todo-description">Description: </label>
+      <input type="text" name="todo-description" id="input-todo-description"><br />
+
+      <label for="input-todo-priority">Priority: </label>
+      <input type="number" name="todo-priority" id="input-todo-priority"><br />
+
+      <label for="input-todo-date">Date: </label>
+      <input type="date" name="todo-date" id="input-todo-date"><br />
+
+      <button>Create TODO</button>
+    </div>
+
+    <h1>Your Project List: </h1>
+    <ul id="project-list">
+      <li class="project">
+        <h2 class="project-title">First Project</h2>
+        <button class="button-project-add-todo">Add TODO...</button>
+        <button class="button-project-delete">Delete this project</button>
+        <button class="button-project-expand">Expand / Hide</button>
+        <p class="project-description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere corporis voluptatibus delectus iste consequatur iusto repellat nesciunt nihil voluptatum excepturi doloremque fugit laudantium dignissimos consectetur, quasi veritatis. Voluptatum veniam cum vero asperiores inventore maiores? Cumque voluptatibus dolore delectus debitis, officia distinctio dolorem perferendis sequi laboriosam eos quas minima nesciunt ea.</p>
+        <ul class="todo-list">
+          <li class="todo">
+            <h3 class="todo-title">First TODO title</h3>
+            <p><span class="todo-date">2021-02-27</span>, priority: <span class="todo-priority">1</span>, status: <span class="todo-status">done</span></p>
+            <p class="todo-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo doloribus ipsa quibusdam nemo beatae incidunt fuga, deserunt error eaque nesciunt rem neque fugit! Placeat sed, consequuntur dicta animi quaerat magni repudiandae accusamus ea, reiciendis maxime eum suscipit dignissimos, nulla facilis!</p>
+            <button class="button-todo-complete">Complete</button>
+            <button class="button-todo-edit">Edit</button>
+            <button class="button-todo-expand">Expand / Hide</button>
+            <button class="button-todo-delete">Delete this TODO</button>
+          </li>
+          <li class="todo">
+            <h3 class="todo-title">Second TODO title</h3>
+            <p><span class="todo-date">2021-02-28</span>, priority: <span class="todo-priority">1</span>, status: <span class="todo-status">in progress</span></p>
+            <p class="todo-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo doloribus ipsa quibusdam nemo beatae incidunt fuga, deserunt error eaque nesciunt rem neque fugit! Placeat sed, consequuntur dicta animi quaerat magni repudiandae accusamus ea, reiciendis maxime eum suscipit dignissimos, nulla facilis!</p>
+            <button class="button-todo-complete">Complete</button>
+            <button class="button-todo-edit">Edit</button>
+            <button class="button-todo-expand">Expand / Hide</button>
+            <button class="button-todo-delete">Delete this TODO</button>
+          </li>
+          <li class="todo">
+            <h3 class="todo-title">Third TODO title</h3>
+            <p><span class="todo-date">2021-02-29</span>, priority: <span class="todo-priority">1</span>, status: <span class="todo-status">in progress</span></p>
+            <p class="todo-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo doloribus ipsa quibusdam nemo beatae incidunt fuga, deserunt error eaque nesciunt rem neque fugit! Placeat sed, consequuntur dicta animi quaerat magni repudiandae accusamus ea, reiciendis maxime eum suscipit dignissimos, nulla facilis!</p>
+            <button class="button-todo-complete">Complete</button>
+            <button class="button-todo-edit">Edit</button>
+            <button class="button-todo-expand">Expand / Hide</button>
+            <button class="button-todo-delete">Delete this TODO</button>
+          </li>
+        </ul>
+      </li>
+      <li class="project">
+        <h2 class="project-title">Second Project</h2>
+        <button class="button-project-add-todo">Add TODO...</button>
+        <button class="button-project-delete">Delete this project</button>
+        <button class="button-project-expand">Expand / Hide</button>
+        <p class="project-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur ad nisi illum reprehenderit dolores totam officia, quae voluptatibus, error aspernatur dolore? Vel eius aliquid repellendus earum quibusdam rem, illo deserunt vero similique sapiente recusandae, voluptas quisquam porro reprehenderit, ut nobis.</p>
+        <ul class="todo-list">
+          <li class="todo">
+            <h3 class="todo-title">First TODO title</h3>
+            <p><span class="todo-date">2021-02-27</span>, priority: <span class="todo-priority">1</span>, status: <span class="todo-status">in progress</span></p>
+            <p class="todo-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo doloribus ipsa quibusdam nemo beatae incidunt fuga, deserunt error eaque nesciunt rem neque fugit! Placeat sed, consequuntur dicta animi quaerat magni repudiandae accusamus ea, reiciendis maxime eum suscipit dignissimos, nulla facilis!</p>
+            <button class="button-todo-complete">Complete</button>
+            <button class="button-todo-edit">Edit</button>
+            <button class="button-todo-expand">Expand / Hide</button>
+            <button class="button-todo-delete">Delete this TODO</button>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
   <script src="bundle.js"></script>
 </body>
