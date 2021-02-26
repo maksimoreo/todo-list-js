@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>TODO List</title>
 </head>
 <body>
@@ -31,7 +32,19 @@
       <label for="input-todo-date">Date: </label>
       <input type="date" name="todo-date" id="input-todo-date"><br />
 
-      <button>Create TODO</button>
+      <button id="button-todo-create">Create TODO</button>
+    </div>
+
+    <div id="project-form">
+      <h1>Add new project:</h1>
+
+      <label for="input-project-title">Title: </label>
+      <input type="text" name="project-title" id="input-project-title"><br />
+
+      <label for="input-project-description">Description: </label>
+      <input type="text" name="project-description" id="input-project-description"><br />
+
+      <button id="button-project-create">Create project</button>
     </div>
 
     <h1>Your Project List: </h1>
