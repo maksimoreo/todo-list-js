@@ -1,20 +1,33 @@
-import { Project } from './project';
-
+let projectForm;
 let inputTitle;
 let inputDescription;
-let buttonProjectCreate;
-let buttonProjectCreateCallback;
+let buttonProjectSubmit;
+
+let currentProject;
+let onNewProjectCallback;
+let onUpdateProjectCallback;
 
 function init() {
+    projectForm = document.querySelector('#project-form');
     inputTitle = document.querySelector('#input-project-title');
     inputDescription = document.querySelector('#input-project-description');
-    buttonProjectCreate = document.querySelector('#button-project-create');
+    buttonProjectSubmit = document.querySelector('#button-project-submit');
 
-    buttonProjectCreate.onclick = () => {
-        if (buttonProjectCreateCallback) {
-            buttonProjectCreateCallback();
+    buttonProjectSubmit.onclick = () => {
+        if (currentProject) {
+            onUpdateProjectCallback(currentProject);
+        } else {
+            onNewProjectCallback();
         }
     }
+}
+
+function show() {
+    projectForm.classList.remove('hide');
+}
+
+function hide() {
+    projectForm.classList.add('hide');
 }
 
 function clear() {
@@ -22,12 +35,36 @@ function clear() {
     inputDescription.value = '';
 }
 
-function onSubmit(callback) {
-    buttonProjectCreateCallback = callback;
+function fill(project) {
+    inputTitle.value = project.title;
+    inputDescription.value = project.description;
 }
 
-function constructProjectFromInput() {
-    return new Project(inputTitle.value, inputDescription.value);
+function openForNewProject() {
+    show();
+    clear();
+    buttonProjectSubmit.textContent = 'Create New Project'
+    currentProject = null;
 }
 
-export default { init, clear, onSubmit, constructProjectFromInput }
+function openForEdit(project) {
+    show();
+    fill(project);
+    buttonProjectSubmit.textContent = 'Update Project'
+    currentProject = project;
+}
+
+function onNewProject(callback) {
+    onNewProjectCallback = callback;
+}
+
+function onUpdateProject(callback) {
+    onUpdateProjectCallback = callback;
+}
+
+function fillProjectFromInput(project) {
+    project.title = inputTitle.value;
+    project.description = inputDescription.value;
+}
+
+export default { init, onNewProject, onUpdateProject, fillProjectFromInput, openForNewProject, openForEdit, show, hide }

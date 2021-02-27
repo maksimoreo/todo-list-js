@@ -19,6 +19,11 @@ class ProjectUI {
         this.addTodoButton.textContent = 'Add TODO...';
         this.projectContainer.appendChild(this.addTodoButton);
 
+        this.editButton = document.createElement('button');
+        this.editButton.classList.add('button-project-edit');
+        this.editButton.textContent = 'Edit project';
+        this.projectContainer.appendChild(this.editButton);
+
         this.deleteButton = document.createElement('button');
         this.deleteButton.classList.add('button-project-delete');
         this.deleteButton.textContent = 'Delete project';
@@ -49,6 +54,10 @@ class ProjectUI {
 
     getDomElement() {
         return this.projectContainer;
+    }
+
+    onEditButtonPressed(callback) {
+        this.editButton.onclick = callback;
     }
 
     onDeleteButtonPressed(callback) {
