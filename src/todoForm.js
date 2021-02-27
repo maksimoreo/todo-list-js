@@ -20,17 +20,7 @@ function init() {
     inputDate = document.querySelector('#input-todo-date');
     buttonTodoSubmit = document.querySelector('#button-todo-submit');
 
-    buttonTodoSubmit.onclick = () => {
-        if (currentTodo) {
-            console.log('not implemented yet :>');
-        } else {
-            let todo = new Todo();
-            fillTodoFromInput(todo);
-            todo.ui.updateValues();
-            currentProject.addTodo(todo);
-            hide();
-        }
-    }
+    buttonTodoSubmit.onclick = onSubmit;
 
     hide();
 }
@@ -81,6 +71,22 @@ function fillTodoFromInput(todo) {
     todo.description = inputDescription.value;
     todo.priority = inputPriority.value;
     todo.date = inputDate.value;
+}
+
+function onSubmit() {
+    if (currentTodo) {
+        fillTodoFromInput(currentTodo);
+        currentTodo.ui.updateValues();
+        // TODO: Show notification about successful TODO update
+    } else {
+        let todo = new Todo();
+        fillTodoFromInput(todo);
+        todo.ui.updateValues();
+        currentProject.addTodo(todo);
+        // TODO: Show notification about successful TODO create
+    }
+
+    hide();
 }
 
 export default { init, fillTodoFromInput, openForNewTodo, openForEdit, show, hide }

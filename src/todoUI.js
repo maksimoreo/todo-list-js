@@ -1,5 +1,6 @@
 import './helper';
 import helper from './helper';
+import todoForm from './todoForm';
 
 class TodoUI {
     constructor(todo) {
@@ -29,11 +30,11 @@ class TodoUI {
     }
 
     setupEvents() {
+        this.editButton.onclick = () => todoForm.openForEdit(this.todo);
+
         this.expandButton.onclick = () => this.toggleExpand();
 
-        this.deleteButton.onclick = () => {
-            this.todo.project.removeTodo(this.todo);
-        }
+        this.deleteButton.onclick = () => this.todo.project.removeTodo(this.todo);
     }
 
     toggleExpand() {
