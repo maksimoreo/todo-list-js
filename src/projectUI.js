@@ -1,5 +1,6 @@
 import projectForm from "./projectForm";
 import projectList from "./projectList";
+import todoForm from "./todoForm";
 
 class ProjectUI {
     constructor(project) {
@@ -48,7 +49,7 @@ class ProjectUI {
 
     setupEvents() {
         this.addTodoButton.onclick = () => {
-            console.log('Not implemented yet :>');
+            todoForm.openForNewTodo(this.project);
         }
 
         this.editButton.onclick = () => {
@@ -89,6 +90,14 @@ class ProjectUI {
         } else {
             this.todoList.classList.add('hide');
         }
+    }
+
+    addTodoUI(todoUI) {
+        this.todoList.appendChild(todoUI.getDomElement());
+    }
+
+    removeTodoUI(todoUI) {
+        this.todoList.removeChild(todoUI.getDomElement());
     }
 }
 
