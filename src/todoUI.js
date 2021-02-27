@@ -30,6 +30,10 @@ class TodoUI {
 
     setupEvents() {
         this.expandButton.onclick = () => this.toggleExpand();
+
+        this.deleteButton.onclick = () => {
+            this.todo.project.removeTodo(this.todo);
+        }
     }
 
     toggleExpand() {
