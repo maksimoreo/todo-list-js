@@ -14,6 +14,8 @@ function init() {
     buttonProjectSubmit = document.querySelector('#button-project-submit');
 
     buttonProjectSubmit.onclick = () => {
+        // TODO: Check if project title already taken
+
         if (currentProject) {
             onUpdateProjectCallback(currentProject);
         } else {

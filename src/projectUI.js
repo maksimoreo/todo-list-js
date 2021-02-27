@@ -1,3 +1,6 @@
+import projectForm from "./projectForm";
+import projectList from "./projectList";
+
 class ProjectUI {
     constructor(project) {
         this.project = project;
@@ -44,6 +47,18 @@ class ProjectUI {
     }
 
     setupEvents() {
+        this.addTodoButton.onclick = () => {
+            console.log('Not implemented yet :>');
+        }
+
+        this.editButton.onclick = () => {
+            projectForm.openForEdit(this.project);
+        }
+
+        this.deleteButton.onclick = () => {
+            projectList.remove(this.project);
+        }
+
         this.expandButton.onclick = () => this.toggleExpandTodoList(); // arrow function, doesn't capture 'this'
     }
 

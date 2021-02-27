@@ -1,46 +1,30 @@
 import { Project } from './project';
-import ProjectForm from './projectForm';
-import ProjectList from './projectList';
+import projectForm from './projectForm';
+import projectList from './projectList';
 import projectListUI from './projectListUI';
 
 function init() {
-    ProjectForm.init();
-    ProjectForm.hide();
+    projectForm.init();
+    projectForm.hide();
 
-    ProjectForm.onNewProject(() => {
+    projectForm.onNewProject(() => {
         let project = new Project();
-        initProject(project);
+        projectForm.fillProjectFromInput(project);
         project.ui.updateValues();
-        ProjectList.add(project);
-        ProjectForm.hide();
+        projectList.add(project);
+        projectForm.hide();
         // TODO: Show notification about successful create
     });
 
-    ProjectForm.onUpdateProject((project) => {
-        ProjectForm.fillProjectFromInput(project);
+    projectForm.onUpdateProject((project) => {
+        projectForm.fillProjectFromInput(project);
         project.ui.updateValues();
-        ProjectForm.hide();
+        projectForm.hide();
         // TODO: Show notification about successful update
     });
 
     projectListUI.onNewProject(() => {
-        ProjectForm.openForNewProject();
-    });
-}
-
-function initProject(project) {
-    ProjectForm.fillProjectFromInput(project);
-
-    project.ui.onEditButtonPressed(() => {
-        ProjectForm.openForEdit(project);
-    });
-
-    project.ui.onDeleteButtonPressed(() => {
-        ProjectList.remove(project);
-    });
-
-    project.ui.onAddTodoButtonPressed(() => {
-        console.log('not implemented yet :>');
+        projectForm.openForNewProject();
     });
 }
 
