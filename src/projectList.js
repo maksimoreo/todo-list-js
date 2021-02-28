@@ -18,4 +18,12 @@ function remove(project) {
     }
 }
 
-export default { add, remove };
+function findProjectByTitle(title) {
+    for (let project of projects) {
+        if (project.title === title) {
+            return project;
+        }
+    }
+}
+
+export default { add, remove, findProjectByTitle };

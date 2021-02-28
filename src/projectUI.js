@@ -1,6 +1,8 @@
+import helper from "./helper";
 import projectForm from "./projectForm";
 import projectList from "./projectList";
 import todoForm from "./todoForm";
+import hideMixin from './hideMixin';
 
 class ProjectUI {
     constructor(project) {
@@ -8,59 +10,25 @@ class ProjectUI {
         this.render();
         this.setupEvents();
         this.updateValues(project);
+        this.setHideElement(this.todoList);
     }
 
     render() {
-        this.projectContainer = document.createElement('li');
-        this.projectContainer.classList.add('project');
-
-        this.title = document.createElement('h2');
-        this.title.classList.add('project-title');
-        this.projectContainer.appendChild(this.title);
-
-        this.addTodoButton = document.createElement('button');
-        this.addTodoButton.classList.add('button-project-add-todo');
-        this.addTodoButton.textContent = 'Add TODO...';
-        this.projectContainer.appendChild(this.addTodoButton);
-
-        this.editButton = document.createElement('button');
-        this.editButton.classList.add('button-project-edit');
-        this.editButton.textContent = 'Edit project';
-        this.projectContainer.appendChild(this.editButton);
-
-        this.deleteButton = document.createElement('button');
-        this.deleteButton.classList.add('button-project-delete');
-        this.deleteButton.textContent = 'Delete project';
-        this.projectContainer.appendChild(this.deleteButton);
-
-        this.expandButton = document.createElement('button');
-        this.expandButton.classList.add('button-project-expand');
-        this.expandButton.textContent = 'Expand / Hide';
-        this.projectContainer.appendChild(this.expandButton);
-
-        this.description = document.createElement('p');
-        this.description.classList.add('project-description');
-        this.projectContainer.appendChild(this.description);
-
-        this.todoList = document.createElement('ul');
-        this.todoList.classList.add('todo-list');
-        this.projectContainer.appendChild(this.todoList);
+        this.projectContainer = helper.createElement('li', null, null, 'project');
+        this.title = helper.createElement('h2', this.projectContainer, null, 'project-title');
+        this.addTodoButton = helper.createElement('button', this.projectContainer, 'Add TODO...', 'button-project-add-todo');
+        this.editButton = helper.createElement('button', this.projectContainer, 'Edit', 'button-project-edit');
+        this.deleteButton = helper.createElement('button', this.projectContainer, 'Delete', 'button-project-delete');
+        this.expandButton = helper.createElement('button', this.projectContainer, 'Expand / Hide', 'button-project-expand');
+        this.description = helper.createElement('p', this.projectContainer, null, 'project-description');
+        this.todoList = helper.createElement('ul', this.projectContainer, null, 'todo-list');
     }
 
     setupEvents() {
-        this.addTodoButton.onclick = () => {
-            todoForm.openForNewTodo(this.project);
-        }
-
-        this.editButton.onclick = () => {
-            projectForm.openForEdit(this.project);
-        }
-
-        this.deleteButton.onclick = () => {
-            projectList.remove(this.project);
-        }
-
-        this.expandButton.onclick = () => this.toggleExpandTodoList(); // arrow function, doesn't capture 'this'
+        this.addTodoButton.onclick = () => todoForm.openForNewTodo(this.project);
+        this.editButton.onclick = () => projectForm.openForEdit(this.project);
+        this.deleteButton.onclick = () => projectList.remove(this.project);
+        this.expandButton.onclick = () => this.toggleHide();
     }
 
     updateValues() {
@@ -72,26 +40,6 @@ class ProjectUI {
         return this.projectContainer;
     }
 
-    onEditButtonPressed(callback) {
-        this.editButton.onclick = callback;
-    }
-
-    onDeleteButtonPressed(callback) {
-        this.deleteButton.onclick = callback;
-    }
-
-    onAddTodoButtonPressed(callback) {
-        this.addTodoButton.onclick = callback;
-    }
-
-    toggleExpandTodoList() {
-        if (this.todoList.classList.contains('hide')) {
-            this.todoList.classList.remove('hide');
-        } else {
-            this.todoList.classList.add('hide');
-        }
-    }
-
     addTodoUI(todoUI) {
         this.todoList.appendChild(todoUI.getDomElement());
     }
@@ -100,5 +48,7 @@ class ProjectUI {
         this.todoList.removeChild(todoUI.getDomElement());
     }
 }
+
+Object.assign(ProjectUI.prototype, hideMixin.hideMixin);
 
 export { ProjectUI };

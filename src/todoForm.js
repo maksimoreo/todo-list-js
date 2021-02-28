@@ -1,3 +1,4 @@
+import hideMixin from "./hideMixin";
 import { Todo } from "./todo";
 
 let todoForm;
@@ -20,17 +21,10 @@ function init() {
     inputDate = document.querySelector('#input-todo-date');
     buttonTodoSubmit = document.querySelector('#button-todo-submit');
 
-    buttonTodoSubmit.onclick = onSubmit;
+    buttonTodoSubmit.onclick = () => onSubmit();
 
-    hide();
-}
-
-function show() {
-    todoForm.classList.remove('hide');
-}
-
-function hide() {
-    todoForm.classList.add('hide');
+    module.setHideElement(todoForm);
+    module.hide();
 }
 
 function clear() {
@@ -50,7 +44,7 @@ function fill(todo) {
 }
 
 function openForNewTodo(project) {
-    show();
+    this.show();
     clear();
     currentProject = project;
     inputProject.value = project.title;
@@ -59,7 +53,7 @@ function openForNewTodo(project) {
 }
 
 function openForEdit(todo) {
-    show();
+    this.show();
     fill(todo);
     buttonTodoSubmit.textContent = 'Update TODO'
     currentTodo = todo;
@@ -86,7 +80,10 @@ function onSubmit() {
         // TODO: Show notification about successful TODO create
     }
 
-    hide();
+    module.hide();
 }
 
-export default { init, fillTodoFromInput, openForNewTodo, openForEdit, show, hide }
+let module = Object.assign({ fillTodoFromInput, openForNewTodo, openForEdit }, hideMixin.hideMixin);
+init();
+
+export default module;

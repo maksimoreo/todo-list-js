@@ -1,6 +1,6 @@
-import './helper';
 import helper from './helper';
 import todoForm from './todoForm';
+import hideMixin from './hideMixin';
 
 class TodoUI {
     constructor(todo) {
@@ -8,6 +8,7 @@ class TodoUI {
         this.render();
         this.setupEvents();
         this.updateValues();
+        this.setHideElement(this.description);
     }
 
     render() {
@@ -31,18 +32,8 @@ class TodoUI {
 
     setupEvents() {
         this.editButton.onclick = () => todoForm.openForEdit(this.todo);
-
-        this.expandButton.onclick = () => this.toggleExpand();
-
+        this.expandButton.onclick = () => this.toggleHide();
         this.deleteButton.onclick = () => this.todo.project.removeTodo(this.todo);
-    }
-
-    toggleExpand() {
-        if (this.description.classList.contains('hide')) {
-            this.description.classList.remove('hide');
-        } else {
-            this.description.classList.add('hide');
-        }
     }
 
     updateValues() {
@@ -58,5 +49,7 @@ class TodoUI {
         return this.todoContainer;
     }
 }
+
+Object.assign(TodoUI.prototype, hideMixin.hideMixin);
 
 export { TodoUI };
