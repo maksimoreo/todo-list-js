@@ -44,7 +44,7 @@ function fill(todo) {
 }
 
 function openForNewTodo(project) {
-    this.show();
+    module.show();
     clear();
     currentProject = project;
     inputProject.value = project.title;
@@ -53,7 +53,7 @@ function openForNewTodo(project) {
 }
 
 function openForEdit(todo) {
-    this.show();
+    module.show();
     fill(todo);
     buttonTodoSubmit.textContent = 'Update TODO'
     currentTodo = todo;

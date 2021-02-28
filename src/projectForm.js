@@ -1,3 +1,7 @@
+import hideMixin from "./hideMixin";
+import { Project } from "./project";
+import projectList from "./projectList";
+
 let projectForm;
 let inputTitle;
 let inputDescription;
@@ -13,23 +17,10 @@ function init() {
     inputDescription = document.querySelector('#input-project-description');
     buttonProjectSubmit = document.querySelector('#button-project-submit');
 
-    buttonProjectSubmit.onclick = () => {
-        // TODO: Check if project title already taken
+    buttonProjectSubmit.onclick = onSubmit;
 
-        if (currentProject) {
-            onUpdateProjectCallback(currentProject);
-        } else {
-            onNewProjectCallback();
-        }
-    }
-}
-
-function show() {
-    projectForm.classList.remove('hide');
-}
-
-function hide() {
-    projectForm.classList.add('hide');
+    module.setHideElement(projectForm);
+    module.hide();
 }
 
 function clear() {
@@ -43,14 +34,14 @@ function fill(project) {
 }
 
 function openForNewProject() {
-    show();
+    module.show();
     clear();
     buttonProjectSubmit.textContent = 'Create New Project'
     currentProject = null;
 }
 
 function openForEdit(project) {
-    show();
+    module.show();
     fill(project);
     buttonProjectSubmit.textContent = 'Update Project'
     currentProject = project;
@@ -69,4 +60,23 @@ function fillProjectFromInput(project) {
     project.description = inputDescription.value;
 }
 
-export default { init, onNewProject, onUpdateProject, fillProjectFromInput, openForNewProject, openForEdit, show, hide }
+function onSubmit() {
+    if (currentProject) {
+        fillProjectFromInput(currentProject);
+        currentProject.ui.updateValues();
+        // TODO: Show notification about successful proejct update
+    } else {
+        let project = new Project();
+        fillProjectFromInput(project);
+        project.ui.updateValues();
+        projectList.add(project);
+        // TODO: Show notification about successful project create
+    }
+
+    module.hide();
+}
+
+let module = Object.assign({ init, onNewProject, onUpdateProject, fillProjectFromInput, openForNewProject, openForEdit }, hideMixin.hideMixin);
+init();
+
+export default module;
