@@ -8,5 +8,5 @@ todo-list-js
 
 # TODO
 - Save to browser's local storage
-- Design
+- Form validation
 - Notifications about TODO/project create, update, delete actions

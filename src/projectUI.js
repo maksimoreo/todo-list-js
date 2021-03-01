@@ -15,11 +15,20 @@ class ProjectUI {
 
     render() {
         this.projectContainer = helper.createElement('li', null, null, 'project');
-        this.title = helper.createElement('h2', this.projectContainer, null, 'project-title');
-        this.addTodoButton = helper.createElement('button', this.projectContainer, 'Add TODO...', 'button-project-add-todo');
-        this.editButton = helper.createElement('button', this.projectContainer, 'Edit', 'button-project-edit');
-        this.deleteButton = helper.createElement('button', this.projectContainer, 'Delete', 'button-project-delete');
-        this.expandButton = helper.createElement('button', this.projectContainer, 'Expand / Hide', 'button-project-expand');
+
+        this.flex = helper.createElement('div', this.projectContainer, null, 'flex');
+        this.title = helper.createElement('h2', this.flex, null, 'project-title');
+
+        let buttonGrid = helper.createElement('div', this.flex, null, 'button-grid');
+        this.addTodoButton = helper.createElement('button', buttonGrid, null, 'button-project-add-todo');
+        helper.createElement('i', this.addTodoButton, null, ['fas', 'fa-plus']);
+        this.editButton = helper.createElement('button', buttonGrid, null, 'button-project-edit');
+        helper.createElement('i', this.editButton, null, ['fas', 'fa-pen']);
+        this.expandButton = helper.createElement('button', buttonGrid, null, 'button-project-expand');
+        helper.createElement('i', this.expandButton, null, ['fas', 'fa-caret-down']);
+        this.deleteButton = helper.createElement('button', buttonGrid, null, 'button-project-delete');
+        helper.createElement('i', this.deleteButton, null, ['fas', 'fa-times']);
+
         this.description = helper.createElement('p', this.projectContainer, null, 'project-description');
         this.todoList = helper.createElement('ul', this.projectContainer, null, 'todo-list');
     }

@@ -13,7 +13,19 @@ class TodoUI {
 
     render() {
         this.todoContainer = helper.createElement('li', null, null, 'todo');
-        this.title = helper.createElement('h3', this.todoContainer, null, 'todo-title');
+
+        this.flex = helper.createElement('div', this.todoContainer, null, 'flex');
+        this.title = helper.createElement('h3', this.flex, null, 'todo-title');
+
+        this.buttonGrid = helper.createElement('div', this.flex, null, 'button-grid');
+        this.completeButton = helper.createElement('button', this.buttonGrid, null, 'button-todo-complete');
+        helper.createElement('i', this.completeButton, null, ['fas', 'fa-check']);
+        this.editButton = helper.createElement('button', this.buttonGrid, null, 'button-todo-Edit');
+        helper.createElement('i', this.editButton, null, ['fas', 'fa-pen']);
+        this.expandButton = helper.createElement('button', this.buttonGrid, null, 'button-todo-expand');
+        helper.createElement('i', this.expandButton, null, ['fas', 'fa-caret-down']);
+        this.deleteButton = helper.createElement('button', this.buttonGrid, null, 'button-todo-delete');
+        helper.createElement('i', this.deleteButton, null, ['fas', 'fa-times']);
 
         let todoInfoP = helper.createElement('p', this.todoContainer, null, null);
         this.date = helper.createElement('span', todoInfoP, null, 'todo-date');
@@ -23,11 +35,6 @@ class TodoUI {
         this.status = helper.createElement('span', todoInfoP, null, 'todo-status');
 
         this.description = helper.createElement('p', this.todoContainer, null, 'todo-description');
-
-        this.completeButton = helper.createElement('button', this.todoContainer, 'Complete', 'button-todo-complete');
-        this.editButton = helper.createElement('button', this.todoContainer, 'Edit', 'button-todo-Edit');
-        this.expandButton = helper.createElement('button', this.todoContainer, 'Expand / Hide', 'button-todo-expand');
-        this.deleteButton = helper.createElement('button', this.todoContainer, 'Delete', 'button-todo-delete');
     }
 
     setupEvents() {
