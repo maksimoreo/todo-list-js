@@ -1,3 +1,138 @@
+/* CSS Reset from: http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; } body { line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; } table { border-collapse: collapse; border-spacing: 0; }
+
+/* CSS box-sizing fix from: https://css-tricks.com/box-sizing/ */
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+html {
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    background: #191923;
+    color: #ddd;
+}
+
+#content {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .hide {
     display: none;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.align-center {
+    text-align: center;
+}
+
+a {
+    color: white;
+}
+
+h1 {
+    font-size: 32px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+
+button {
+    border-radius: 8px;
+    background: rgba(200, 200, 200, 0.4);
+    border: 2px solid #333;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 2px 8px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.project {
+    background: #118AB2;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.project-title, .todo-title {
+    font-size: 28px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    flex-grow: 1;
+}
+
+.project-description, .todo-description {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.todo {
+    background: #FFD166;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #222;
+}
+
+.todo-completed {
+    background: #7CAE7A;
+}
+
+.todo button, .project button {
+    color: #222;
+}
+
+#project-form, #todo-form {
+    background: #444;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+input, textarea {
+    width: 100%;
+}
+
+.input-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.button-project-delete, .button-todo-delete {
+    background: #CD4631;
+    border-color: #CD4631;
+    color: white !important;
+}
+
+.button-project-delete:hover, .button-todo-delete:hover {
+    background: #EF476F;
+    border-color: #EF476F;
+}
+
+#button-new-project {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 600px) {
+    .project-title, .todo-title {
+        width: 100%;
+    }
 }
