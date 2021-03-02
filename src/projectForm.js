@@ -1,6 +1,6 @@
-import hideMixin from "./hideMixin";
-import { Project } from "./project";
-import projectList from "./projectList";
+import hideMixin from './hideMixin';
+import { Project } from './project';
+import projectList from './projectList';
 
 let projectForm;
 let inputTitle;
@@ -8,8 +8,6 @@ let inputDescription;
 let buttonProjectSubmit;
 
 let currentProject;
-let onNewProjectCallback;
-let onUpdateProjectCallback;
 
 function init() {
     projectForm = document.querySelector('#project-form');
@@ -36,23 +34,15 @@ function fill(project) {
 function openForNewProject() {
     module.show();
     clear();
-    buttonProjectSubmit.textContent = 'Create New Project'
+    buttonProjectSubmit.textContent = 'Create New Project';
     currentProject = null;
 }
 
 function openForEdit(project) {
     module.show();
     fill(project);
-    buttonProjectSubmit.textContent = 'Update Project'
+    buttonProjectSubmit.textContent = 'Update Project';
     currentProject = project;
-}
-
-function onNewProject(callback) {
-    onNewProjectCallback = callback;
-}
-
-function onUpdateProject(callback) {
-    onUpdateProjectCallback = callback;
 }
 
 function fillProjectFromInput(project) {
@@ -76,7 +66,10 @@ function onSubmit() {
     module.hide();
 }
 
-let module = Object.assign({ init, onNewProject, onUpdateProject, fillProjectFromInput, openForNewProject, openForEdit }, hideMixin.hideMixin);
+let module = Object.assign(
+    { init, fillProjectFromInput, openForNewProject, openForEdit },
+    hideMixin.hideMixin
+);
 init();
 
 export default module;

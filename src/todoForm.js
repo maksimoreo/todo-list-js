@@ -1,5 +1,5 @@
-import hideMixin from "./hideMixin";
-import { Todo } from "./todo";
+import hideMixin from './hideMixin';
+import { Todo } from './todo';
 
 let todoForm;
 let inputProject;
@@ -48,14 +48,14 @@ function openForNewTodo(project) {
     clear();
     currentProject = project;
     inputProject.value = project.title;
-    buttonTodoSubmit.textContent = 'Create New TODO'
+    buttonTodoSubmit.textContent = 'Create New TODO';
     currentTodo = null;
 }
 
 function openForEdit(todo) {
     module.show();
     fill(todo);
-    buttonTodoSubmit.textContent = 'Update TODO'
+    buttonTodoSubmit.textContent = 'Update TODO';
     currentTodo = todo;
 }
 

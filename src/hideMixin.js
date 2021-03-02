@@ -4,13 +4,13 @@ let hideMixin = {
             if (element.classList.contains('hide')) {
                 element.classList.remove('hide');
             }
-        }
+        };
 
         this.hide = () => {
             if (!element.classList.contains('hide')) {
                 element.classList.add('hide');
             }
-        }
+        };
 
         this.toggleHide = () => {
             if (element.classList.contains('hide')) {
@@ -18,8 +18,8 @@ let hideMixin = {
             } else {
                 element.classList.add('hide');
             }
-        }
-    }
+        };
+    },
 };
 
 export default { hideMixin };

@@ -9,6 +9,8 @@
   "author": "me",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^7.21.0",
+    "prettier": "2.2.1",
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0"
   },

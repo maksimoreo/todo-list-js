@@ -10,7 +10,8 @@ function createElement(tagName, parent, textContent, classList) {
     }
 
     if (classList) {
-        if (typeof classList === 'string') { // TODO: split classList string if it contains spaces
+        if (typeof classList === 'string') {
+            // TODO: split classList string if it contains spaces
             element.classList.add(classList);
         } else {
             for (let className of classList) {
