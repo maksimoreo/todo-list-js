@@ -1,75 +1,57 @@
 import hideMixin from './hideMixin';
 import { Project } from './project';
 import projectList from './projectList';
+import form from './form';
 
-let projectForm;
-let inputTitle;
-let inputDescription;
-let buttonProjectSubmit;
-
-let currentProject;
-
-function init() {
-    projectForm = document.querySelector('#project-form');
-    inputTitle = document.querySelector('#input-project-title');
-    inputDescription = document.querySelector('#input-project-description');
-    buttonProjectSubmit = document.querySelector('#button-project-submit');
-
-    buttonProjectSubmit.onclick = onSubmit;
-
-    module.setHideElement(projectForm);
-    module.hide();
-}
-
-function clear() {
-    inputTitle.value = '';
-    inputDescription.value = '';
-}
-
-function fill(project) {
-    inputTitle.value = project.title;
-    inputDescription.value = project.description;
-}
-
-function openForNewProject() {
-    module.show();
-    clear();
-    buttonProjectSubmit.textContent = 'Create New Project';
-    currentProject = null;
-}
-
-function openForEdit(project) {
-    module.show();
-    fill(project);
-    buttonProjectSubmit.textContent = 'Update Project';
-    currentProject = project;
-}
-
-function fillProjectFromInput(project) {
-    project.title = inputTitle.value;
-    project.description = inputDescription.value;
-}
-
-function onSubmit() {
-    if (currentProject) {
-        fillProjectFromInput(currentProject);
-        currentProject.ui.updateValues();
-        // TODO: Show notification about successful proejct update
-    } else {
-        let project = new Project();
-        fillProjectFromInput(project);
-        project.ui.updateValues();
-        projectList.add(project);
-        // TODO: Show notification about successful project create
+function validateTitle(input) {
+    if (input.value.length < 2) {
+        return 'Too short';
+    } else if (input.value.length >= 100) {
+        return 'Too long (maybe put explanation in the description?)';
     }
-
-    module.hide();
 }
 
-let module = Object.assign(
-    { init, fillProjectFromInput, openForNewProject, openForEdit },
-    hideMixin.hideMixin
-);
-init();
+const projectForm = {
+    _init() {
+        this.hide();
 
-export default module;
+        this.fields.title.onValidate = validateTitle;
+    },
+
+    openForNewProject() {
+        this.show();
+        this.clear();
+        this.submitButton.textContent = 'Create New Project';
+        this.currentProject = null;
+    },
+
+    openForEdit(project) {
+        this.show();
+        this.fillFields(project);
+        this.submitButton.textContent = 'Update Project';
+        this.currentProject = project;
+    },
+
+    onSubmit() {
+        if (this.currentProject) {
+            this.fillObj(this.currentProject);
+            this.currentProject.ui.updateValues();
+            // TODO: Show notification about successful proejct update
+        } else {
+            const project = new Project();
+            this.fillObj(project);
+            project.ui.updateValues();
+            projectList.add(project);
+            // TODO: Show notification about successful project create
+        }
+
+        this.hide();
+    }
+}
+
+Object.assign(projectForm, hideMixin.hideMixin, form.formMixin);
+projectForm.setFormFields('project', ['title', 'description']);
+projectForm.setHideElement(projectForm.form);
+projectForm._init();
+
+export default projectForm;

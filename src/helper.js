@@ -23,4 +23,12 @@ function createElement(tagName, parent, textContent, classList) {
     return element;
 }
 
-export default { createElement };
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function arrayToCamelCase(arr) {
+    return [arr[0], ...arr.slice(1).map(str => capitalize(str))].join('');
+}
+
+export default { createElement, arrayToCamelCase };
