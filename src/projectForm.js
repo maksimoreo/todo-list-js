@@ -4,6 +4,8 @@ import projectList from './projectList';
 import form from './form';
 
 function validateTitle(input) {
+    // TODO: Must be unique
+
     if (input.value.length < 2) {
         return 'Too short';
     } else if (input.value.length >= 100) {

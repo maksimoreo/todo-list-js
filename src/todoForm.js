@@ -1,89 +1,86 @@
 import hideMixin from './hideMixin';
 import { Todo } from './todo';
+import form from './form';
+import projectList from './projectList';
 
-let todoForm;
-let inputProject;
-let inputTitle;
-let inputDescription;
-let inputPriority;
-let inputDate;
-let buttonTodoSubmit;
-
-let currentProject;
-let currentTodo;
-
-function init() {
-    todoForm = document.querySelector('#todo-form');
-    inputProject = document.querySelector('#input-todo-project');
-    inputTitle = document.querySelector('#input-todo-title');
-    inputDescription = document.querySelector('#input-todo-description');
-    inputPriority = document.querySelector('#input-todo-priority');
-    inputDate = document.querySelector('#input-todo-date');
-    buttonTodoSubmit = document.querySelector('#button-todo-submit');
-
-    buttonTodoSubmit.onclick = () => onSubmit();
-
-    module.setHideElement(todoForm);
-    module.hide();
-}
-
-function clear() {
-    inputProject.value = '';
-    inputTitle.value = '';
-    inputDescription.value = '';
-    inputPriority.value = '';
-    inputDate.value = '';
-}
-
-function fill(todo) {
-    inputProject.value = todo.project.title;
-    inputTitle.value = todo.title;
-    inputDescription.value = todo.description;
-    inputPriority.value = todo.priority;
-    inputDate.value = todo.date;
-}
-
-function openForNewTodo(project) {
-    module.show();
-    clear();
-    currentProject = project;
-    inputProject.value = project.title;
-    buttonTodoSubmit.textContent = 'Create New TODO';
-    currentTodo = null;
-}
-
-function openForEdit(todo) {
-    module.show();
-    fill(todo);
-    buttonTodoSubmit.textContent = 'Update TODO';
-    currentTodo = todo;
-}
-
-function fillTodoFromInput(todo) {
-    todo.project = currentProject;
-    todo.title = inputTitle.value;
-    todo.description = inputDescription.value;
-    todo.priority = inputPriority.value;
-    todo.date = inputDate.value;
-}
-
-function onSubmit() {
-    if (currentTodo) {
-        fillTodoFromInput(currentTodo);
-        currentTodo.ui.updateValues();
-        // TODO: Show notification about successful TODO update
-    } else {
-        let todo = new Todo();
-        fillTodoFromInput(todo);
-        todo.ui.updateValues();
-        currentProject.addTodo(todo);
-        // TODO: Show notification about successful TODO create
+function validateProject(input) {
+    if (!projectList.findProjectByTitle(input.value)) {
+        return "This project doesn't exist!";
     }
-
-    module.hide();
 }
 
-let module = Object.assign({ fillTodoFromInput, openForNewTodo, openForEdit }, hideMixin.hideMixin);
-init();
+function validateTitle(input) {
+    // TODO: Must be unique
 
-export default module;
+    if (input.value === '') {
+        return 'Cannot be emtpy';
+    } else if (input.value.length < 2) {
+        return 'Too short';
+    } else if (input.value.length >= 100) {
+        return 'Too long (maybe put explanation in the description?)';
+    }
+}
+
+function validateDescription(input) {
+    // Can be empty
+}
+
+function validatePriority(input) {
+
+}
+
+function validateDate(input) {
+
+}
+
+const todoForm = {
+    _init() {
+        this.hide();
+
+        this.fields.project.onValidate = validateProject;
+        this.fields.title.onValidate = validateTitle;
+        this.fields.description.onValidate = validateDescription;
+        this.fields.priority.onValidate = validatePriority;
+        this.fields.date.onValidate = validateDate;
+    },
+
+    openForNewTodo(project) {
+        this.show();
+        this.clear();
+        // this.currentProject = project;
+        this.fields.project.input.value = project.title;
+        this.submitButton.textContent = 'Create New TODO';
+        this.currentTodo = null;
+    },
+
+    openForEdit(todo) {
+        this.show();
+        this.fillFields(todo);
+        this.submitButton.textContent = 'Update TODO';
+        this.currentTodo = todo;
+    },
+
+    onSubmit() {
+        if (this.currentTodo) {
+            this.fillObj(currentTodo);
+            this.currentTodo.ui.updateValues();
+            // TODO: Show notification about successful TODO update
+        } else {
+            let todo = new Todo();
+            this.fillObj(todo);
+            todo.ui.updateValues();
+            const project = projectList.findProjectByTitle(this.fields.project.input.value);
+            project.addTodo(todo);
+            // TODO: Show notification about successful TODO create
+        }
+
+        this.hide();
+    }
+};
+
+Object.assign(todoForm, hideMixin.hideMixin, form.formMixin);
+todoForm.setFormFields('todo', ['project', 'title', 'description', 'priority', 'date']);
+todoForm.setHideElement(todoForm.form);
+todoForm._init();
+
+export default todoForm;

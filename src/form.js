@@ -15,17 +15,21 @@ class FormField {
         }
 
         this.valid = true;
+
+        this.input.oninput = () => this.validate();
+        // this.input.onsubmit does not work?
     }
 
     set onValidate(callback) {
-        this.input.oninput = () => this._validate(callback);
-        this.input.onsubmit = () => this._validate(callback);
+        this.validationCallback = callback;
     }
 
-    _validate(callback) {
-        const returnValue = callback(this.input);
-        this.error.textContent = typeof returnValue === 'string' ? returnValue : '';
-        this.valid = !returnValue;
+    validate() {
+        if (this.validationCallback) {
+            const returnValue = this.validationCallback(this.input);
+            this.error.textContent = typeof returnValue === 'string' ? returnValue : '';
+            this.valid = !returnValue;
+        }
     }
 }
 
@@ -46,6 +50,7 @@ const formMixin = {
         // Submit
         this.submitButton = document.querySelector(`#button-${formName}-submit`);
         this.submitButton.onclick = () => {
+            this.validateFields();
             if (this.isValid()) {
                 this.onSubmit(this.fields);
             }
@@ -78,7 +83,13 @@ const formMixin = {
         }
 
         return true;
-    }
+    },
+
+    validateFields() {
+        for (const fieldName in this.fields) {
+            this.fields[fieldName].validate();
+        }
+    },
 }
 
 export default { formMixin };
