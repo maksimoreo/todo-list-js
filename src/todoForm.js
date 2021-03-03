@@ -47,7 +47,6 @@ const todoForm = {
     openForNewTodo(project) {
         this.show();
         this.clear();
-        // this.currentProject = project;
         this.fields.project.input.value = project.title;
         this.submitButton.textContent = 'Create New TODO';
         this.currentTodo = null;
@@ -56,13 +55,15 @@ const todoForm = {
     openForEdit(todo) {
         this.show();
         this.fillFields(todo);
+        this.fields.project.input.value = todo.project.title; // todo.project is Object, must be its title
         this.submitButton.textContent = 'Update TODO';
         this.currentTodo = todo;
     },
 
     onSubmit() {
         if (this.currentTodo) {
-            this.fillObj(currentTodo);
+            this.fillObj(this.currentTodo);
+            this.currentTodo.project = projectList.findProjectByTitle(this.currentTodo.project); // convert project title to project Object
             this.currentTodo.ui.updateValues();
             // TODO: Show notification about successful TODO update
         } else {
